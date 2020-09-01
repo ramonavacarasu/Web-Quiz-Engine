@@ -5,14 +5,18 @@ API:
 
 /api
     /quizzes:
-    POST: Create a quiz.
-    GET: Get all quizzes.
-      /{id}:
+     POST: Create a quiz.
+     GET: Get all quizzes.
+    
+    /{id}:
       GET: Get quiz by id.
       DELETE: Delete quiz by user's id.
-        /solve:
+      
+    /solve:
         POST: Solve quiz with recieved quiz's id.
-      /completed:
+        
+    /completed:
       GET: Get all quizzes, solved by currently authorized user.
+      
     /register:
     POST: Register a user.
