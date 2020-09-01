@@ -60,20 +60,12 @@ public class QuizService {
     public ResponseEntity delete(Long id, User user) {
         Quiz quiz = getById(id);
         User userNameQuiz = quiz.getUser();
-        if (quiz != null) {
-            if (userNameQuiz != null) {
-                if (user != null) {
-                    if (userNameQuiz.equals(user)) {
-                        quizRepository.delete(quiz);
-                        return new ResponseEntity(HttpStatus.NO_CONTENT);
-                    }
-                    return new ResponseEntity(HttpStatus.FORBIDDEN);
-                }
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        if (!user.getUsername().equals(userNameQuiz.getUsername())) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+        quizRepository.delete(quiz);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     public Long maxId() {
