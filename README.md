@@ -4,6 +4,7 @@ It is an engine for creating/solving/deleting quizzes by multiple authorized (HT
 API:
 
 /api
+    
     /quizzes:
      POST: Create a quiz.
      GET: Get all quizzes.
