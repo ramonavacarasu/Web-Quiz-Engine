@@ -1,0 +1,59 @@
+# Project exclude paths
+/.gradle/
+/Problems/Advanced list/out/
+/Problems/Advanced list/out/production/classes/
+/Problems/Allocated memory/out/
+/Problems/Allocated memory/out/production/classes/
+/Problems/An approximate matching/out/
+/Problems/An approximate matching/out/production/classes/
+/Problems/Balance management/out/
+/Problems/Balance management/out/production/classes/
+/Problems/Count words without repetitions/out/
+/Problems/Count words without repetitions/out/production/classes/
+/Problems/DAG checker/out/
+/Problems/DAG checker/out/production/classes/
+/Problems/Double addition/out/
+/Problems/Double addition/out/production/classes/
+/Problems/Edit distance with a scoring matrix/out/
+/Problems/Edit distance with a scoring matrix/out/production/classes/
+/Problems/Edit distance with insertions and deletions/out/
+/Problems/Edit distance with insertions and deletions/out/production/classes/
+/Problems/Efficient memory consumption/out/
+/Problems/Efficient memory consumption/out/production/classes/
+/Problems/Find the second largest element in an array/out/
+/Problems/Find the second largest element in an array/out/production/classes/
+/Problems/Finding a representative of strings/out/
+/Problems/Finding a representative of strings/out/production/classes/
+/Problems/Finding a substring minimizing distance/out/
+/Problems/Finding a substring minimizing distance/out/production/classes/
+/Problems/Finding an alignment using a scoring function/out/
+/Problems/Finding an alignment using a scoring function/out/production/classes/
+/Problems/Finding the most similar reverse substring/out/
+/Problems/Finding the most similar reverse substring/out/production/classes/
+/Problems/Greedy load balance/out/
+/Problems/Greedy load balance/out/production/classes/
+/Problems/Max-min sorting/out/
+/Problems/Max-min sorting/out/production/classes/
+/Problems/Multiple sequence alignment/out/
+/Problems/Multiple sequence alignment/out/production/classes/
+/Problems/Not only non-negative numbers/out/
+/Problems/Not only non-negative numbers/out/production/classes/
+/Problems/Rope/out/
+/Problems/Rope/out/production/classes/
+/Problems/Secret codes/out/
+/Problems/Secret codes/out/production/classes/
+/Problems/Simple doubly linked list/out/
+/Problems/Simple doubly linked list/out/production/classes/
+/Problems/Sorted list/out/
+/Problems/Sorted list/out/production/classes/
+/Problems/Sorting the absolute values/out/
+/Problems/Sorting the absolute values/out/production/classes/
+/Problems/The height of a tree (v1)/out/
+/Problems/The height of a tree (v1)/out/production/classes/
+/Problems/The ten most frequent words/out/
+/Problems/The ten most frequent words/out/production/classes/
+/Problems/Which brackets are balanced/out/
+/Problems/Which brackets are balanced/out/production/classes/
+/Web Quiz Engine/task/build/
+/Web Quiz Engine/task/out/
+/Web Quiz Engine/task/out/production/classes/
