@@ -8,7 +8,7 @@
 
 <h2>Create a new quiz</h2>
 
-<p>To create a new quiz, the client need to send a JSON as the request's body via <code class="language-json">POST</code> to <code class="language-json">/api/quizzes</code>. The JSON should contain the four fields: <code class="language-json">title</code> (a string), <code class="language-json">text</code> (a string), <code class="language-json">options</code> (an array of strings) and <code class="language-json">answer</code> (integer index of the correct option). At this moment, all the keys are optional.</p>
+<p>To create a new quiz, the client needs to send a JSON as the request's body via <code class="language-json">POST</code> to <code class="language-json">/api/quizzes</code>. The JSON should contain the four fields: <code class="language-json">title</code> (a string), <code class="language-json">text</code> (a string), <code class="language-json">options</code> (an array of strings) and <code class="language-json">answer</code> (integer index of the correct option). At this moment, all the keys are optional.</p>
 
 <p>Here is a new JSON quiz as an example:</p>
 
@@ -74,7 +74,7 @@
 
 <p><div class="alert alert-warning">The response <strong>must not</strong> include the <code class="language-json">answer</code> field, otherwise, any user will be able to find the correct answer for any quiz.</div></p>
 
-<p>If there are no quizzes, it the service returns an empty JSON array: <code class="language-json">[]</code>.</p>
+<p>If there are no quizzes, the service returns an empty JSON array: <code class="language-json">[]</code>.</p>
 
 <p>In both cases, the status code is <code class="language-json">200 (OK)</code>.</p>
 

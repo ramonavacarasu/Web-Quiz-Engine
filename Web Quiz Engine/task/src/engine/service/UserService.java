@@ -1,33 +1,29 @@
 package engine.service;
 
-import engine.model.Quiz;
-import engine.model.User;
 import engine.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+public class UserService implements UserDetailsService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    public void save(User user) {
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-        if (userRepository.findByEmail(user.getEmail()) != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        } else {
-            user.setId(user.getId());
-            user.setEmail(user.getEmail());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user = userRepository.findByEmail(username);
+        if (user.isPresent()) {
+            return user.get();
         }
+        throw new UsernameNotFoundException("User '" + username + "' not found!");
     }
 
 }

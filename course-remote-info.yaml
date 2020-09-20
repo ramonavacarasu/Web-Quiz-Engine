@@ -6,16 +6,22 @@ hyperskill_project:
 stages:
 - id: 504
   step: 8252
+  is_completed: true
 - id: 505
   step: 8253
+  is_completed: true
 - id: 506
   step: 8254
+  is_completed: true
 - id: 507
   step: 8255
+  is_completed: true
 - id: 508
   step: 8256
+  is_completed: true
 - id: 509
   step: 8257
+  is_completed: false
 topics:
   0:
   - title: External resources

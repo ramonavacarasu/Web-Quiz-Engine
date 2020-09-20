@@ -3,17 +3,19 @@ package engine.service;
 import engine.model.Answer;
 import engine.model.FeedBack;
 import engine.model.Quiz;
-import engine.model.User;
 import engine.repositories.QuizRepository;
 import engine.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class QuizService {
@@ -24,12 +26,20 @@ public class QuizService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Quiz> getAll() {
-        return quizRepository.findAll();
+
+    public List<Quiz> getAllQuizzes(Integer pageNo, Integer pageSize, String sortBy) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<Quiz> pagedResult = quizRepository.findAll(paging);
+
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Quiz>();
+        }
     }
 
-    public Quiz getById(Long id) {
-        Quiz quiz = quizRepository.findById(id).orElse(null);
+    public Quiz getById(String id) {
+        Quiz quiz = quizRepository.findById(Integer.parseInt(id)).orElse(null);
 
         if (quiz == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -38,17 +48,7 @@ public class QuizService {
         return quiz;
     }
 
-
-    public void save(Quiz quiz, User user) {
-        Long max = maxId();
-        quiz.setId(max == null ? 0 : max + 1);
-        quiz.setUser(user);
-        //user.setQuizzes().add(quiz);
-        quizRepository.save(quiz);
-    }
-
-
-    public FeedBack solve(Answer answer, Long id) {
+    public FeedBack solve(Answer answer, String id) {
         Quiz quiz = getById(id);
         if (answer.getAnswer().equals(quiz.getAnswer())) {
             return new FeedBack(true);
@@ -57,18 +57,4 @@ public class QuizService {
         return new FeedBack(false);
     }
 
-    public ResponseEntity delete(Long id, User user) {
-        Quiz quiz = getById(id);
-        User userNameQuiz = quiz.getUser();
-
-        if (!user.getUsername().equals(userNameQuiz.getUsername())) {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
-        }
-        quizRepository.delete(quiz);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    public Long maxId() {
-        return quizRepository.maxId();
-    }
 }

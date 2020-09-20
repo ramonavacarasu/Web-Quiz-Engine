@@ -806,38 +806,6 @@ files:
 - name: src/engine/repositories/UserRepository.java
   visible: true
   learner_created: true
-- name: src/engine/exceptions/QuizExceptionHandler.java
-  visible: true
-  text: |-
-    package engine;
-
-    import java.util.*;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.web.bind.annotation.ExceptionHandler;
-    import org.springframework.web.bind.annotation.ResponseStatus;
-    import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-    @RestControllerAdvice
-    public class QuizExceptionHandler {
-
-        @ExceptionHandler(IndexOutOfBoundsException.class)
-        @ResponseStatus(HttpStatus.NOT_FOUND)
-        public HashMap<String, String> handleIndexOutOfBoundsException(Exception e) {
-            HashMap<String, String> response = new HashMap<>();
-            response.put("message", "Quiz Not Found");
-            response.put("error", e.getClass().getSimpleName());
-            return response;
-        }
-    }
-
-
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    class RequiredException extends RuntimeException {
-        public RequiredException(String message) {
-            super(message);
-        }
-    }
-  learner_created: true
 - name: src/engine/exceptions/ResourceNotFoundException.java
   visible: true
   text: |-
@@ -914,19 +882,9 @@ files:
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/508/implement
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #153
-
-    DELETE /api/quizzes/0 should respond with status code 204, responded: 404
-
-    Response body:
-
-    Please find below the output of your program during this failed test.
-
-    ---
-
-    Hibernate: select quiz0_.id as id1_0_0_, quiz0_.text as text2_0_0_, quiz0_.title as title3_0_0_, quiz0_.userid as userid4_0_0_, user1_.id as id1_3_1_, user1_.email as email2_3_1_, user1_.password as password3_3_1_ from quizzes quiz0_ left outer join users user1_ on quiz0_.userid=user1_.id where quiz0_.id=?
-  time: Mon, 31 Aug 2020 13:14:37 UTC
-record: -1
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/91/stages/508/implement">JetBrains
+    Academy</a>
+  time: Wed, 16 Sep 2020 14:13:54 UTC
+record: 5

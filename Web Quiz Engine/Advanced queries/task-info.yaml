@@ -1,75 +1,6 @@
 type: edu
 custom_name: stage6
 files:
-- name: src/engine/Task.java
-  visible: true
-  text: |
-    package engine;
-
-    import com.fasterxml.jackson.annotation.JsonProperty;
-
-    public class Task {
-
-        private int id;
-        private String title;
-        private String text;
-        private String[] options;
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        private int answer;
-
-        public Task() {
-        }
-        public Task(String title, String text, String[] options, int answer) {
-            this.title = title;
-            this.text = text;
-            this.options = options;
-            this.answer = answer;
-            this.id = QuizController.idCounter++;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-
-        public String[] getOptions() {
-            return options;
-        }
-
-        public void setOptions(String[] options) {
-            this.options = options;
-        }
-
-        public int getAnswer() {
-            return answer;
-        }
-
-        public void setAnswer(int answer) {
-            this.answer = answer;
-        }
-    }
-  learner_created: false
 - name: src/resources/application.properties
   visible: true
   text: |
@@ -95,32 +26,6 @@ files:
 
     }
   learner_created: false
-- name: src/engine/Feedback.java
-  visible: true
-  text: |-
-    package engine;
-
-    public class Feedback {
-        private final String successString = "That was an easy one, ha? :)";
-        private final String failString = "Our mistakes are just small steps on the long road of Experience. Please, try again.";
-
-        private boolean success;
-        private String feedback;
-
-        public Feedback(boolean success) {
-            this.success = success;
-            this.feedback = success ? successString : failString;
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public String getFeedback() {
-            return feedback;
-        }
-    }
-  learner_created: false
 - name: build.gradle
   visible: true
   text: |
@@ -143,61 +48,6 @@ files:
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         compile("org.springframework.boot:spring-boot-starter-web")
-    }
-  learner_created: false
-- name: src/engine/QuizController.java
-  visible: true
-  text: |
-    package engine;
-
-    import org.springframework.http.HttpStatus;
-    import org.springframework.web.bind.annotation.*;
-    import org.springframework.web.server.ResponseStatusException;
-
-    import java.util.ArrayList;
-    import java.util.List;
-
-    @RestController
-    public class QuizController {
-
-        public QuizController() {
-        }
-
-        public static int idCounter = 0;
-        private List<Task> tasks = new ArrayList<>();
-
-
-        @PostMapping(path = "/api/quizzes")
-        public Task getTask(@RequestBody Task task) {
-
-            tasks.add(task);
-            tasks.get(idCounter).setId(idCounter++);
-
-            return task;
-        }
-
-
-        @PostMapping(path = "/api/quizzes/{id}/solve")
-        public Feedback answerQuiz(@RequestParam int answer, @PathVariable int id) {
-            return answer == tasks.get(id).getAnswer() ?
-                    new Feedback(true) : new Feedback(false);
-        }
-
-        @GetMapping(path = "/api/quizzes/{id}")
-        public Task getQuiz(@PathVariable int id) {
-            if (id < 0 || id >= tasks.size()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
-            return tasks.get(id);
-        }
-
-        @GetMapping(path = "/api/quizzes")
-        public List<Task> getAllQuizzes() {
-            return tasks;
-        }
-
-
-
     }
   learner_created: false
 - name: test/tests/WebQuizEngineTest.java
@@ -944,6 +794,243 @@ files:
         }
     }
   learner_created: false
+- name: src/engine/exceptions/ResourceNotFoundException.java
+  visible: true
+  text: |-
+    package engine;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.ResponseStatus;
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public class ResourceNotFoundException extends Exception{
+
+        private static final long serialVersionUID = 1L;
+
+        public ResourceNotFoundException(String message){
+            super(message);
+        }
+    }
+  learner_created: true
+- name: src/engine/service/UserService.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/User.java
+  visible: true
+  learner_created: true
+- name: src/engine/controllers/UserController.java
+  visible: true
+  learner_created: true
+- name: src/engine/repositories/UserRepository.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/Answer.java
+  visible: true
+  text: |-
+    package engine;
+
+    import java.util.*;
+    import org.springframework.stereotype.Component;
+
+    @Component
+    public class Answer {
+
+        private boolean success;
+        private String feedback;
+        private HashSet<Integer> answer = new HashSet<>();
+
+        public void init(Quiz quiz) {
+            success = quiz.checkAnswer(this.answer);
+            feedback = success ? "You won, yay!" : "You lost, oh no";
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public void setAnswers(HashSet<Integer> answers) {
+            this.answer = answers;
+        }
+
+        public void setAnswer(HashSet<Integer> answer) {
+            this.answer = answer;
+        }
+
+        public boolean getSuccess() {
+            return success;
+        }
+
+        public String getFeedback() {
+            return feedback;
+        }
+
+    }
+  learner_created: true
+- name: src/engine/service/QuizService.java
+  visible: true
+  learner_created: true
+- name: src/engine/security/SecurityConfig.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/FeedBack.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/Quiz.java
+  visible: true
+  text: |-
+    package engine;
+
+
+    import java.util.*;
+
+    import com.fasterxml.jackson.annotation.JsonProperty;
+    import org.springframework.stereotype.Component;
+
+    import javax.persistence.*;
+
+
+    @Entity
+    @Component
+    public class Quiz {
+
+        @Id
+        @GeneratedValue
+        private int id;
+        private String title = null;
+        private String text = null;
+        private String[] options = null;
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private HashSet<Integer> answer = new HashSet<>();
+
+
+        public int getId() {
+            return id;
+        }
+
+        @Column(name = "title", nullable = false)
+        public String getTitle() {
+            return title;
+        }
+
+        @Column(name = "text", nullable = false)
+        public String getText() {
+            return text;
+        }
+
+        @Column(name = "options", nullable = false)
+        public String[] getOptions() {
+            return options;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public void setOptions(String[] options) {
+            this.options = options;
+        }
+
+        public void setAnswer(HashSet<Integer> answer) {
+            this.answer = answer;
+        }
+
+        public boolean checkAnswer(HashSet<Integer> answers) {
+            return this.answer.equals(answers);
+        }
+
+    }
+  learner_created: true
+- name: src/engine/repositories/QuizRepository.java
+  visible: true
+  text: |-
+    package engine;
+
+    import org.springframework.data.jpa.repository.JpaRepository;
+    import org.springframework.stereotype.Repository;
+
+    @Repository
+    public interface QuizRepository extends JpaRepository<Quiz, Integer> {
+
+    }
+  learner_created: true
+- name: src/engine/controllers/QuizController.java
+  visible: true
+  text: |
+    package engine;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.util.ArrayList;
+    import java.util.List;
+
+    @RestController
+    public class QuizController {
+
+        public QuizController() {
+        }
+
+        public static int idCounter = 0;
+        private List<Task> tasks = new ArrayList<>();
+
+
+        @PostMapping(path = "/api/quizzes")
+        public Task getTask(@RequestBody Task task) {
+
+            tasks.add(task);
+            tasks.get(idCounter).setId(idCounter++);
+
+            return task;
+        }
+
+
+        @PostMapping(path = "/api/quizzes/{id}/solve")
+        public Feedback answerQuiz(@RequestParam int answer, @PathVariable int id) {
+            return answer == tasks.get(id).getAnswer() ?
+                    new Feedback(true) : new Feedback(false);
+        }
+
+        @GetMapping(path = "/api/quizzes/{id}")
+        public Task getQuiz(@PathVariable int id) {
+            if (id < 0 || id >= tasks.size()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+            return tasks.get(id);
+        }
+
+        @GetMapping(path = "/api/quizzes")
+        public List<Task> getAllQuizzes() {
+            return tasks;
+        }
+
+
+
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/509/implement
-status: Unchecked
+status: Failed
+feedback:
+  message: |2
+
+    FAILURE: Build failed with an exception.
+
+    * What went wrong:
+    Could not initialize class org.codehaus.groovy.runtime.InvokerHelper
+
+    * Try:
+    Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+    * Get more help at https://help.gradle.org
+
+    BUILD FAILED in 0s
+  time: Thu, 17 Sep 2020 19:55:05 UTC
 record: -1

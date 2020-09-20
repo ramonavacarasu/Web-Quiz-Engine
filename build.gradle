@@ -16,10 +16,13 @@ subprojects {
     }
 
     dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.12'
         testCompile 'com.google.code.gson:gson:2.8.5'
         testCompile 'org.apache.httpcomponents:httpclient:4.5.9'
-        testImplementation 'com.github.hyperskill:hs-test:985a6c4cd308f68a9eed8f9135cc4493e9c9e861'
+        testImplementation 'com.github.hyperskill:hs-test:release-SNAPSHOT'
+    }
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }
 
     sourceSets {
@@ -42,12 +45,12 @@ subprojects {
         }
     }
 
-    compileJava.options.encoding = 'UTF-8'
+    compileJava.options.encoding = 'utf-8'
     tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
+        options.encoding = 'utf-8'
     }
 }
 
 wrapper {
-    gradleVersion = '5.3.1'
+    gradleVersion = '6.6.1'
 }

@@ -13,6 +13,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Problems/A full binary tree" />
+            <option value="$PROJECT_DIR$/Problems/Add days and subtract hours" />
             <option value="$PROJECT_DIR$/Problems/Advanced list" />
             <option value="$PROJECT_DIR$/Problems/Allocated memory" />
             <option value="$PROJECT_DIR$/Problems/An approximate matching" />
@@ -20,9 +21,11 @@
             <option value="$PROJECT_DIR$/Problems/Balance management" />
             <option value="$PROJECT_DIR$/Problems/Books as strings" />
             <option value="$PROJECT_DIR$/Problems/Calculating factorials" />
+            <option value="$PROJECT_DIR$/Problems/Calculator with four methods" />
             <option value="$PROJECT_DIR$/Problems/Constructor Checker" />
             <option value="$PROJECT_DIR$/Problems/Count words without repetitions" />
             <option value="$PROJECT_DIR$/Problems/Counting clicks" />
+            <option value="$PROJECT_DIR$/Problems/Create a full name" />
             <option value="$PROJECT_DIR$/Problems/Cycled list" />
             <option value="$PROJECT_DIR$/Problems/DAG checker" />
             <option value="$PROJECT_DIR$/Problems/Double addition" />
@@ -54,6 +57,7 @@
             <option value="$PROJECT_DIR$/Problems/Range quadratic sum" />
             <option value="$PROJECT_DIR$/Problems/Rope" />
             <option value="$PROJECT_DIR$/Problems/Secret codes" />
+            <option value="$PROJECT_DIR$/Problems/Set average" />
             <option value="$PROJECT_DIR$/Problems/Simple doubly linked list" />
             <option value="$PROJECT_DIR$/Problems/Simple list" />
             <option value="$PROJECT_DIR$/Problems/Sorted list" />
