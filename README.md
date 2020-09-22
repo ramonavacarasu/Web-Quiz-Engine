@@ -9,7 +9,7 @@ Web Quiz Engine -> Education project of Hyperskill.org
 ![](src/resources/Screenshots/AllQuizzes.png)
 
 
-![](src/resources/Screenshots/AllQuizzesJSON.png)
+![](Web&#32;Quiz&#32;Engine/task/src/resources/Screenshots/AllQuizzesJSON.png)
 
   
 /api/quizzes/completed:
