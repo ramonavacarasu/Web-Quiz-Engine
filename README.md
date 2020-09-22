@@ -7,7 +7,7 @@ Web Quiz Engine -> Education project of Hyperskill.org
   
   
   
-![](Web Quiz Engine/task/src/resources/Screenshots/AllQuizzes.png)
+![](src/resources/Screenshots/AllQuizzes.png)
 
 
 
