@@ -3,6 +3,7 @@ Web Quiz Engine -> Education project of Hyperskill.org
 /api/quizzes:
 
   POST: Create a quiz.
+  
   GET: Get all quizzes with paging.
   
  
@@ -13,7 +14,10 @@ Web Quiz Engine -> Education project of Hyperskill.org
 
   
 /api/quizzes/completed:
+
   GET: Get all completions of quizzes with paging
   
+
+
 
 ![](Web&#32;Quiz&#32;Engine/task/src/resources/Screenshots/Completed.png)
