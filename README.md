@@ -6,13 +6,14 @@ Web Quiz Engine -> Education project of Hyperskill.org
   GET: Get all quizzes with paging.
   
   
-  
+ Get all quizzes
 ![](src/resources/Screenshots/AllQuizzes.png)
 
 
 
 
-![](Web Quiz Engine/task/src/resources/Screenshots/AllQuizzesJSON.png)
+
+![](task/src/resources/Screenshots/AllQuizzesJSON.png)
 
   
 /api/quizzes/completed:
