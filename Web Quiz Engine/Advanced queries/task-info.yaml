@@ -1031,6 +1031,6 @@ feedback:
 
     * Get more help at https://help.gradle.org
 
-    BUILD FAILED in 0s
-  time: Thu, 17 Sep 2020 19:55:05 UTC
-record: -1
+    BUILD FAILED in 1s
+  time: Tue, 22 Sep 2020 08:40:35 UTC
+record: 1

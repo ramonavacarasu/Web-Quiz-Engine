@@ -27,15 +27,8 @@ public class QuizService {
     private UserRepository userRepository;
 
 
-    public List<Quiz> getAllQuizzes(Integer pageNo, Integer pageSize, String sortBy) {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        Page<Quiz> pagedResult = quizRepository.findAll(paging);
-
-        if(pagedResult.hasContent()) {
-            return pagedResult.getContent();
-        } else {
-            return new ArrayList<Quiz>();
-        }
+    public List<Quiz> getAll() {
+        return quizRepository.findAll();
     }
 
     public Quiz getById(String id) {
@@ -56,5 +49,6 @@ public class QuizService {
 
         return new FeedBack(false);
     }
+
 
 }

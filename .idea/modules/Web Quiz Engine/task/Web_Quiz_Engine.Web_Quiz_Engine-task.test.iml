@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Web_Quiz_Engine-task_main" />
+    <orderEntry type="module" module-name="Web_Quiz_Engine.Web_Quiz_Engine-task.main" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-security:2.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-actuator:2.2.2.RELEASE" level="project" />
@@ -102,5 +102,5 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.yaml:snakeyaml:1.25" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.easytesting:fest-util:1.2.5" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="Web_Quiz_Engine-task_main" />
+  <component name="TestModuleProperties" production-module="Web_Quiz_Engine.Web_Quiz_Engine-task.main" />
 </module>

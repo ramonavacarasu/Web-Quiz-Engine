@@ -659,226 +659,40 @@ files:
         }
     }
   learner_created: false
-- name: src/engine/model/User.java
-  visible: true
-  learner_created: true
-- name: src/engine/model/Quiz.java
-  visible: true
-  text: |-
-    package engine;
-
-
-    import java.util.*;
-
-    import com.fasterxml.jackson.annotation.JsonProperty;
-    import org.springframework.stereotype.Component;
-
-    import javax.persistence.*;
-
-
-    @Entity
-    @Component
-    public class Quiz {
-
-        @Id
-        @GeneratedValue
-        private int id;
-        private String title = null;
-        private String text = null;
-        private String[] options = null;
-        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-        private HashSet<Integer> answer = new HashSet<>();
-
-
-        public int getId() {
-            return id;
-        }
-
-        @Column(name = "title", nullable = false)
-        public String getTitle() {
-            return title;
-        }
-
-        @Column(name = "text", nullable = false)
-        public String getText() {
-            return text;
-        }
-
-        @Column(name = "options", nullable = false)
-        public String[] getOptions() {
-            return options;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        public void setOptions(String[] options) {
-            this.options = options;
-        }
-
-        public void setAnswer(HashSet<Integer> answer) {
-            this.answer = answer;
-        }
-
-        public boolean checkAnswer(HashSet<Integer> answers) {
-            return this.answer.equals(answers);
-        }
-
-    }
-  learner_created: true
-- name: src/engine/controllers/QuizController.java
-  visible: true
-  text: |
-    package engine;
-
-    import org.springframework.http.HttpStatus;
-    import org.springframework.web.bind.annotation.*;
-    import org.springframework.web.server.ResponseStatusException;
-
-    import java.util.ArrayList;
-    import java.util.List;
-
-    @RestController
-    public class QuizController {
-
-        public QuizController() {
-        }
-
-        public static int idCounter = 0;
-        private List<Task> tasks = new ArrayList<>();
-
-
-        @PostMapping(path = "/api/quizzes")
-        public Task getTask(@RequestBody Task task) {
-
-            tasks.add(task);
-            tasks.get(idCounter).setId(idCounter++);
-
-            return task;
-        }
-
-
-        @PostMapping(path = "/api/quizzes/{id}/solve")
-        public Feedback answerQuiz(@RequestParam int answer, @PathVariable int id) {
-            return answer == tasks.get(id).getAnswer() ?
-                    new Feedback(true) : new Feedback(false);
-        }
-
-        @GetMapping(path = "/api/quizzes/{id}")
-        public Task getQuiz(@PathVariable int id) {
-            if (id < 0 || id >= tasks.size()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
-            return tasks.get(id);
-        }
-
-        @GetMapping(path = "/api/quizzes")
-        public List<Task> getAllQuizzes() {
-            return tasks;
-        }
-
-
-
-    }
-  learner_created: false
-- name: src/engine/repositories/QuizRepository.java
-  visible: true
-  text: |-
-    package engine;
-
-    import org.springframework.data.jpa.repository.JpaRepository;
-    import org.springframework.stereotype.Repository;
-
-    @Repository
-    public interface QuizRepository extends JpaRepository<Quiz, Integer> {
-
-    }
-  learner_created: true
-- name: src/engine/repositories/UserRepository.java
-  visible: true
-  learner_created: true
-- name: src/engine/exceptions/ResourceNotFoundException.java
-  visible: true
-  text: |-
-    package engine;
-
-    import org.springframework.http.HttpStatus;
-    import org.springframework.web.bind.annotation.ResponseStatus;
-
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public class ResourceNotFoundException extends Exception{
-
-        private static final long serialVersionUID = 1L;
-
-        public ResourceNotFoundException(String message){
-            super(message);
-        }
-    }
-  learner_created: true
-- name: src/engine/model/Answer.java
-  visible: true
-  text: |-
-    package engine;
-
-    import java.util.*;
-    import org.springframework.stereotype.Component;
-
-    @Component
-    public class Answer {
-
-        private boolean success;
-        private String feedback;
-        private HashSet<Integer> answer = new HashSet<>();
-
-        public void init(Quiz quiz) {
-            success = quiz.checkAnswer(this.answer);
-            feedback = success ? "You won, yay!" : "You lost, oh no";
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setAnswers(HashSet<Integer> answers) {
-            this.answer = answers;
-        }
-
-        public void setAnswer(HashSet<Integer> answer) {
-            this.answer = answer;
-        }
-
-        public boolean getSuccess() {
-            return success;
-        }
-
-        public String getFeedback() {
-            return feedback;
-        }
-
-    }
-  learner_created: true
-- name: src/engine/security/SecurityConfig.java
+- name: src/engine/service/QuizService.java
   visible: true
   learner_created: true
 - name: src/engine/service/UserService.java
   visible: true
   learner_created: true
-- name: src/engine/service/QuizService.java
+- name: src/engine/exceptions/ResourceNotFoundException.java
+  visible: true
+  learner_created: true
+- name: src/engine/controllers/QuizController.java
   visible: true
   learner_created: true
 - name: src/engine/controllers/UserController.java
   visible: true
   learner_created: true
+- name: src/engine/model/Answer.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/Quiz.java
+  visible: true
+  learner_created: true
 - name: src/engine/model/FeedBack.java
+  visible: true
+  learner_created: true
+- name: src/engine/model/User.java
+  visible: true
+  learner_created: true
+- name: src/engine/repositories/QuizRepository.java
+  visible: true
+  learner_created: true
+- name: src/engine/repositories/UserRepository.java
+  visible: true
+  learner_created: true
+- name: src/engine/security/SecurityConfig.java
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/508/implement
@@ -886,5 +700,5 @@ status: Solved
 feedback:
   message: Congratulations! Continue on <a href="https://hyperskill.org/projects/91/stages/508/implement">JetBrains
     Academy</a>
-  time: Wed, 16 Sep 2020 14:13:54 UTC
+  time: Tue, 22 Sep 2020 08:45:25 UTC
 record: 5

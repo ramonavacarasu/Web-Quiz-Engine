@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Validated
@@ -34,20 +35,10 @@ public class QuizController {
         this.quizRepository = quizRepository;
     }
 
-   /* @GetMapping("/api/quizzes")
-    public ResponseEntity<List<Quiz>> getAllQuizzes(@AuthenticationPrincipal User user,
-                @RequestParam(defaultValue = "0") Integer pageNo,
-                @RequestParam(defaultValue = "10") Integer pageSize,
-                @RequestParam(defaultValue = "id") String sortBy) {
-        List<Quiz> list = quizService.getAllQuizzes(pageNo, pageSize, sortBy);
-        return new ResponseEntity<List<Quiz>>(list, new HttpHeaders(), HttpStatus.OK);
-
-    }*/
-
-    public Page<Quiz> findAllAsPage(Pageable pageable) {
-        return quizRepository.findAll(pageable);
+    @GetMapping("/api/quizzes")
+    public List<Quiz> getAllQuizzes(@AuthenticationPrincipal User user) {
+        return quizService.getAll();
     }
-
 
     @GetMapping("/api/quizzes/{id}")
     public Quiz getQuiz(@PathVariable(value = "id") String quizId, @AuthenticationPrincipal User user) {
