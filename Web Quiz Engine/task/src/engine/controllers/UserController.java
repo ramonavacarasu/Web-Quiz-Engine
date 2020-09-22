@@ -23,9 +23,6 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Autowired
-    private UserService userService;
-
     @PostMapping(path = "/api/register")
     public ResponseEntity<User> register(@Valid @RequestBody User user) {
 

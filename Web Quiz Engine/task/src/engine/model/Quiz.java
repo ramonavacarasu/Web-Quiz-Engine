@@ -22,7 +22,7 @@ public class Quiz {
 
     @Id
     @Column
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @NotBlank
@@ -47,4 +47,8 @@ public class Quiz {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     private User user;
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<QuizCompleted> quizCompleted;
 }
