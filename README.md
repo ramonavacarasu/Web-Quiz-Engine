@@ -5,7 +5,11 @@ Web Quiz Engine -> Education project of Hyperskill.org
   POST: Create a quiz.
   GET: Get all quizzes with paging.
   
+  
+  
 ![](Web Quiz Engine/task/src/resources/Screenshots/AllQuizzes.png)
+
+
 
 
 ![](Web Quiz Engine/task/src/resources/Screenshots/AllQuizzesJSON.png)
