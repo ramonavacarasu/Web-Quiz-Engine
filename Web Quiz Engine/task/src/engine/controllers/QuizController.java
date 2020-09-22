@@ -1,14 +1,13 @@
 package engine.controllers;
 
 import engine.exceptions.ResourceNotFoundException;
-import engine.model.Answer;
-import engine.model.FeedBack;
-import engine.model.Quiz;
-import engine.model.User;
+import engine.model.*;
+import engine.repositories.QuizCompletedRepository;
 import engine.repositories.QuizRepository;
 import engine.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Validated
@@ -27,17 +27,40 @@ public class QuizController {
     @Autowired
     private QuizRepository quizRepository;
 
+    @Autowired
+    private QuizCompletedRepository quizCompletedRepository;
+
 
     @Autowired
     private QuizService quizService;
 
-    public QuizController(QuizRepository quizRepository) {
-        this.quizRepository = quizRepository;
+    @GetMapping("/api/quizzes")
+    public Page<Quiz> getQuizzes(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 3);
+
+        return quizRepository.findAll(pageable);
     }
 
-    @GetMapping("/api/quizzes")
-    public List<Quiz> getAllQuizzes(@AuthenticationPrincipal User user) {
-        return quizService.getAll();
+    @GetMapping("/api/quizzes/completed")
+    public Page<QuizCompleted> getCompletedQuizzes(@RequestParam int page, @AuthenticationPrincipal User user) {
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return quizCompletedRepository.findAllCompletedQuizzesWithPagination(user.getId(), pageable);
+    }
+
+    private void createQuizCompleted(@AuthenticationPrincipal User user, Quiz quiz) {
+        ArrayList<QuizCompleted> completions = new ArrayList<QuizCompleted>();
+        completions.addAll(quiz.getQuizCompleted());
+
+        QuizCompleted quizCompleted = new QuizCompleted();
+        quizCompleted.setQuiz(quiz);
+        quizCompleted.setAuthor(user);
+        quizCompleted.setCompletedAt(LocalDateTime.now());
+        quizCompleted = quizCompletedRepository.save(quizCompleted);
+
+        completions.add(quizCompleted);
+        quiz.setQuizCompleted(completions);
+        quizRepository.save(quiz);
     }
 
     @GetMapping("/api/quizzes/{id}")

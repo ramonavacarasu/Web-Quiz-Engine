@@ -1016,6 +1016,12 @@ files:
 
     }
   learner_created: true
+- name: src/engine/model/QuizCompleted.java
+  visible: true
+  learner_created: true
+- name: src/engine/repositories/QuizCompletedRepository.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/91/stages/509/implement
 status: Failed
 feedback:
@@ -1031,6 +1037,6 @@ feedback:
 
     * Get more help at https://help.gradle.org
 
-    BUILD FAILED in 1s
-  time: Tue, 22 Sep 2020 08:40:35 UTC
+    BUILD FAILED in 0s
+  time: Tue, 22 Sep 2020 09:44:50 UTC
 record: 1
